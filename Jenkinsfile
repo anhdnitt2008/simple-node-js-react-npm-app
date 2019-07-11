@@ -1,13 +1,14 @@
-pipelinre {
+pipeline {
     agent {
         docker {
-            image 'node:9-alpine' 
-            args '-p 3003:3003' 
+            image 'node:6-alpine'
+            args '-p 3000:3000'
         }
     }
     environment {
-	HOME = '.'
-    }	
+        CI = 'true'
+    }
+    stages {
         stage('Build') {
             steps {
                 sh 'npm install'
@@ -25,5 +26,5 @@ pipelinre {
                 sh './jenkins/scripts/kill.sh'
             }
         }
-    
+    }
 }
